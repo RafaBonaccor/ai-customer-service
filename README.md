@@ -93,7 +93,7 @@ We value community input and feedback to continuously improve Evolution API:
 
 ## Telemetry Notice
 
-To continuously improve our services, we have implemented telemetry that collects data on the routes used, the most accessed routes, and the version of the API in use. We would like to assure you that no sensitive or personal data is collected during this process. The telemetry helps us identify improvements and provide a better experience for users.
+Telemetry is disabled by default. If you explicitly enable it with `TELEMETRY_ENABLED=true`, the project sends route usage, API version, and timestamp data. No sensitive or personal payload data is intended to be collected by this mechanism.
 
 ## Evolution Support Premium
 

@@ -58,6 +58,7 @@ export const openaiCredsSchema: JSONSchema7 = {
   properties: {
     name: { type: 'string' },
     apiKey: { type: 'string' },
+    baseUrl: { type: 'string' },
   },
   required: ['name', 'apiKey'],
   ...isNotEmpty('name', 'apiKey'),

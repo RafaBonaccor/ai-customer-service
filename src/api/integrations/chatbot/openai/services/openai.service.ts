@@ -34,9 +34,58 @@ export class OpenaiService extends BaseChatbotService<OpenaiBot, OpenaiSetting> 
   /**
    * Initialize the OpenAI client with the provided API key
    */
-  protected initClient(apiKey: string) {
-    this.client = new OpenAI({ apiKey });
+  private normalizeBaseUrl(baseUrl?: string | null): string | undefined {
+    if (!baseUrl) {
+      return undefined;
+    }
+
+    const trimmedBaseUrl = baseUrl.trim();
+    if (!trimmedBaseUrl) {
+      return undefined;
+    }
+
+    if (/^https?:\/\//i.test(trimmedBaseUrl)) {
+      return trimmedBaseUrl;
+    }
+
+    return `http://${trimmedBaseUrl}`;
+  }
+
+  protected initClient(apiKey: string, baseUrl?: string | null) {
+    this.client = new OpenAI({
+      apiKey,
+      baseURL: this.normalizeBaseUrl(baseUrl),
+    });
     return this.client;
+  }
+
+  private stripTriggerCommand(content: string, openaiBot: OpenaiBot): string {
+    if (openaiBot.triggerType !== 'keyword' || !openaiBot.triggerValue) {
+      return content;
+    }
+
+    const normalizedContent = content.trim();
+    const normalizedTrigger = openaiBot.triggerValue.trim();
+
+    if (!normalizedTrigger) {
+      return content;
+    }
+
+    if (openaiBot.triggerOperator === 'startsWith') {
+      if (normalizedContent.toLowerCase().startsWith(normalizedTrigger.toLowerCase())) {
+        return normalizedContent.slice(normalizedTrigger.length).trim();
+      }
+
+      return content;
+    }
+
+    if (openaiBot.triggerOperator === 'equals') {
+      if (normalizedContent.toLowerCase() === normalizedTrigger.toLowerCase()) {
+        return '';
+      }
+    }
+
+    return content;
   }
 
   /**
@@ -70,7 +119,7 @@ export class OpenaiService extends BaseChatbotService<OpenaiBot, OpenaiSetting> 
         }
 
         // Initialize OpenAI client for transcription
-        this.initClient(creds.apiKey);
+        this.initClient(creds.apiKey, creds.baseUrl);
 
         // Transcribe the audio
         const transcription = await this.speechToText(msg, instance);
@@ -102,8 +151,10 @@ export class OpenaiService extends BaseChatbotService<OpenaiBot, OpenaiSetting> 
         }
 
         // Initialize OpenAI client
-        this.initClient(creds.apiKey);
+        this.initClient(creds.apiKey, creds.baseUrl);
       }
+
+      content = this.stripTriggerCommand(content, openaiBot);
 
       // Handle keyword finish
       const keywordFinish = settings?.keywordFinish || '';
@@ -208,7 +259,7 @@ export class OpenaiService extends BaseChatbotService<OpenaiBot, OpenaiSetting> 
         return;
       }
 
-      this.initClient(creds.apiKey);
+      this.initClient(creds.apiKey, creds.baseUrl);
     }
 
     try {

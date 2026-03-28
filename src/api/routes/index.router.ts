@@ -7,7 +7,6 @@ import { EventRouter } from '@api/integrations/event/event.router';
 import { StorageRouter } from '@api/integrations/storage/storage.router';
 import { waMonitor } from '@api/server.module';
 import { configService, Database, Facebook } from '@config/env.config';
-import { fetchLatestWaWebVersion } from '@utils/fetchLatestWaWebVersion';
 import { NextFunction, Request, Response, Router } from 'express';
 import fs from 'fs';
 import mimeTypes from 'mime-types';
@@ -201,7 +200,7 @@ router
       clientName: databaseConfig.CONNECTION.CLIENT_NAME,
       manager: !serverConfig.DISABLE_MANAGER ? `${req.protocol}://${req.get('host')}/manager` : undefined,
       documentation: `https://doc.evolution-api.com`,
-      whatsappWebVersion: (await fetchLatestWaWebVersion({})).version.join('.'),
+      whatsappWebVersion: 'unavailable',
     });
   })
   .post('/verify-creds', authGuard['apikey'], async (req, res) => {

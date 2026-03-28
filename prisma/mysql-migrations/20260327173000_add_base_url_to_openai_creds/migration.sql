@@ -1,0 +1,2 @@
+ALTER TABLE `OpenaiCreds`
+ADD COLUMN `baseUrl` VARCHAR(500) NULL;

@@ -1,0 +1,57 @@
+services:
+  api:
+    container_name: evolution_api_safe
+    image: evolution-api-safe-local:latest
+    build:
+      context: .
+    restart: unless-stopped
+    depends_on:
+      - evolution-postgres
+      - redis
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - evolution_instances_safe:/evolution/instances
+    env_file:
+      - .env.docker.safe
+    networks:
+      - evolution-safe-net
+
+  redis:
+    container_name: evolution_redis_safe
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --port 6379 --appendonly yes
+    volumes:
+      - evolution_redis_safe:/data
+    expose:
+      - "6379"
+    networks:
+      - evolution-safe-net
+
+  evolution-postgres:
+    container_name: evolution_postgres_safe
+    image: postgres:15-alpine
+    restart: unless-stopped
+    env_file:
+      - .env.docker.safe
+    environment:
+      POSTGRES_DB: evolution_db
+      POSTGRES_USER: evolution
+      POSTGRES_PASSWORD: evolution_safe_pw
+    volumes:
+      - evolution_postgres_safe:/var/lib/postgresql/data
+    expose:
+      - "5432"
+    networks:
+      - evolution-safe-net
+
+volumes:
+  evolution_instances_safe:
+  evolution_redis_safe:
+  evolution_postgres_safe:
+
+networks:
+  evolution-safe-net:
+    name: evolution-safe-net
+    driver: bridge
