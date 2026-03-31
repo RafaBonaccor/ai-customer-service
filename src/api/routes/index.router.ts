@@ -23,6 +23,7 @@ import { MessageRouter } from './sendMessage.router';
 import { SettingsRouter } from './settings.router';
 import { TemplateRouter } from './template.router';
 import { ViewsRouter } from './view.router';
+import { MockRouter } from './mock.router';
 
 enum HttpStatus {
   OK = 200,
@@ -221,6 +222,7 @@ router
   .use('/group', new GroupRouter(...guards).router)
   .use('/template', new TemplateRouter(configService, ...guards).router)
   .use('/settings', new SettingsRouter(...guards).router)
+  .use('/mock', new MockRouter(authGuard['apikey']).router)
   .use('/proxy', new ProxyRouter(...guards).router)
   .use('/label', new LabelRouter(...guards).router)
   .use('', new ChannelRouter(configService, ...guards).router)

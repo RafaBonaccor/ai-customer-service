@@ -59,6 +59,69 @@ export class OpenaiService extends BaseChatbotService<OpenaiBot, OpenaiSetting> 
     return this.client;
   }
 
+  private getAudioTranscriptionsUrl(baseUrl?: string | null): string {
+    const normalizedBaseUrl = this.normalizeBaseUrl(baseUrl);
+    return normalizedBaseUrl ? `${normalizedBaseUrl}/audio/transcriptions` : 'https://api.openai.com/v1/audio/transcriptions';
+  }
+
+  private getAudioSpeechUrl(baseUrl?: string | null): string {
+    const normalizedBaseUrl = this.normalizeBaseUrl(baseUrl);
+    return normalizedBaseUrl ? `${normalizedBaseUrl}/audio/speech` : 'https://api.openai.com/v1/audio/speech';
+  }
+
+  private async sendAudioReply(
+    instance: any,
+    remoteJid: string,
+    message: string,
+    settings: OpenaiSetting,
+    openaiBot: OpenaiBot,
+  ): Promise<boolean> {
+    const creds = await this.prismaRepository.openaiCreds.findUnique({
+      where: { id: openaiBot.openaiCredsId },
+    });
+
+    if (!creds) {
+      this.logger.error(`OpenAI credentials not found for audio reply. CredsId: ${openaiBot.openaiCredsId}`);
+      return false;
+    }
+
+    try {
+      const apiKey = creds.apiKey || this.configService.get<OpenaiConfig>('OPENAI').API_KEY_GLOBAL;
+      const response = await axios.post(
+        this.getAudioSpeechUrl(creds.baseUrl),
+        {
+          model: settings.ttsModel || 'gpt-4o-mini-tts',
+          voice: settings.ttsVoice || 'alloy',
+          input: message,
+        },
+        {
+          responseType: 'arraybuffer',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${apiKey}`,
+          },
+        },
+      );
+
+      const audioBase64 = Buffer.from(response.data).toString('base64');
+      await instance.audioWhatsapp(
+        {
+          number: remoteJid.includes('@lid') ? remoteJid : remoteJid.split('@')[0],
+          delay: settings?.delayMessage || 1000,
+          audio: audioBase64,
+          encoding: true,
+        },
+        null,
+        true,
+      );
+
+      return true;
+    } catch (error) {
+      this.logger.error(`Error generating audio reply: ${error.message || JSON.stringify(error)}`);
+      return false;
+    }
+  }
+
   private stripTriggerCommand(content: string, openaiBot: OpenaiBot): string {
     if (openaiBot.triggerType !== 'keyword' || !openaiBot.triggerValue) {
       return content;
@@ -288,7 +351,14 @@ export class OpenaiService extends BaseChatbotService<OpenaiBot, OpenaiSetting> 
       // Send the response
       if (message) {
         this.logger.log('Sending message to WhatsApp');
-        await this.sendMessageWhatsApp(instance, remoteJid, message, settings, true);
+        if (settings?.responseFormat === 'audio') {
+          const audioSent = await this.sendAudioReply(instance, remoteJid, message, settings, openaiBot);
+          if (!audioSent) {
+            await this.sendMessageWhatsApp(instance, remoteJid, message, settings, true);
+          }
+        } else {
+          await this.sendMessageWhatsApp(instance, remoteJid, message, settings, true);
+        }
       } else {
         this.logger.error('No message to send to WhatsApp');
       }
@@ -773,7 +843,7 @@ export class OpenaiService extends BaseChatbotService<OpenaiBot, OpenaiSetting> 
 
     const apiKey = creds?.apiKey || this.configService.get<OpenaiConfig>('OPENAI').API_KEY_GLOBAL;
 
-    const response = await axios.post('https://api.openai.com/v1/audio/transcriptions', formData, {
+    const response = await axios.post(this.getAudioTranscriptionsUrl(creds.baseUrl), formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${apiKey}`,

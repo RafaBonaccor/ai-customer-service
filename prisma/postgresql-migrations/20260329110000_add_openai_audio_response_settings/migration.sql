@@ -1,0 +1,9 @@
+ALTER TABLE "OpenaiBot"
+ADD COLUMN "responseFormat" VARCHAR(20) DEFAULT 'text',
+ADD COLUMN "ttsModel" VARCHAR(100),
+ADD COLUMN "ttsVoice" VARCHAR(100);
+
+ALTER TABLE "OpenaiSetting"
+ADD COLUMN "responseFormat" VARCHAR(20) DEFAULT 'text',
+ADD COLUMN "ttsModel" VARCHAR(100),
+ADD COLUMN "ttsVoice" VARCHAR(100);

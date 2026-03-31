@@ -9,6 +9,7 @@ import { ChatController } from './controllers/chat.controller';
 import { GroupController } from './controllers/group.controller';
 import { InstanceController } from './controllers/instance.controller';
 import { LabelController } from './controllers/label.controller';
+import { MockController } from './controllers/mock.controller';
 import { ProxyController } from './controllers/proxy.controller';
 import { SendMessageController } from './controllers/sendMessage.controller';
 import { SettingsController } from './controllers/settings.controller';
@@ -40,6 +41,7 @@ import { S3Service } from './integrations/storage/s3/services/s3.service';
 import { ProviderFiles } from './provider/sessions';
 import { PrismaRepository } from './repository/repository.service';
 import { CacheService } from './services/cache.service';
+import { MockOnboardingService } from './services/mock-onboarding.service';
 import { WAMonitoringService } from './services/monitor.service';
 import { ProxyService } from './services/proxy.service';
 import { SettingsService } from './services/settings.service';
@@ -106,6 +108,9 @@ export const chatController = new ChatController(waMonitor);
 export const businessController = new BusinessController(waMonitor);
 export const groupController = new GroupController(waMonitor);
 export const labelController = new LabelController(waMonitor);
+
+const mockOnboardingService = new MockOnboardingService(prismaRepository);
+export const mockController = new MockController(mockOnboardingService, instanceController);
 
 export const eventManager = new EventManager(prismaRepository, waMonitor);
 export const chatbotController = new ChatbotController(prismaRepository, waMonitor);

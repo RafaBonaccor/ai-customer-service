@@ -16,10 +16,16 @@ export class OpenaiDto extends BaseChatbotDto {
   assistantMessages?: string[];
   userMessages?: string[];
   maxTokens?: number;
+  responseFormat?: string;
+  ttsModel?: string;
+  ttsVoice?: string;
 }
 
 export class OpenaiSettingDto extends BaseChatbotSettingDto {
   openaiCredsId?: string;
   openaiIdFallback?: string;
   speechToText?: boolean;
+  responseFormat?: string;
+  ttsModel?: string;
+  ttsVoice?: string;
 }

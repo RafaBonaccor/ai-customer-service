@@ -65,6 +65,27 @@ export class OpenaiController extends BaseChatbotController<OpenaiBot, OpenaiDto
     return 'openai';
   }
 
+  protected async resolveBotForMessage(content: string, instance: any, session: any, settings: any): Promise<any> {
+    const matchedBot = await super.resolveBotForMessage(content, instance, session, settings);
+    if (matchedBot) {
+      return matchedBot;
+    }
+
+    if (!content.startsWith('audioMessage|') || !settings?.speechToText) {
+      return null;
+    }
+
+    return await this.botRepository.findFirst({
+      where: {
+        enabled: true,
+        instanceId: instance.instanceId,
+      },
+      orderBy: {
+        updatedAt: 'desc',
+      },
+    });
+  }
+
   protected getAdditionalBotData(data: OpenaiDto): Record<string, any> {
     return {
       openaiCredsId: data.openaiCredsId,
@@ -76,6 +97,9 @@ export class OpenaiController extends BaseChatbotController<OpenaiBot, OpenaiDto
       assistantMessages: data.assistantMessages,
       userMessages: data.userMessages,
       maxTokens: data.maxTokens,
+      responseFormat: data.responseFormat,
+      ttsModel: data.ttsModel,
+      ttsVoice: data.ttsVoice,
     };
   }
 
@@ -91,6 +115,9 @@ export class OpenaiController extends BaseChatbotController<OpenaiBot, OpenaiDto
       assistantMessages: data.assistantMessages,
       userMessages: data.userMessages,
       maxTokens: data.maxTokens,
+      responseFormat: data.responseFormat,
+      ttsModel: data.ttsModel,
+      ttsVoice: data.ttsVoice,
     };
   }
 
@@ -202,6 +229,9 @@ export class OpenaiController extends BaseChatbotController<OpenaiBot, OpenaiDto
         debounceTime: data.debounceTime || 1,
         ignoreJids: data.ignoreJids || [],
         speechToText: false,
+        responseFormat: data.responseFormat || 'text',
+        ttsModel: data.ttsModel || 'gpt-4o-mini-tts',
+        ttsVoice: data.ttsVoice || 'alloy',
       });
     } else if (!existingSettings.openaiCredsId && data.openaiCredsId) {
       // Update settings with OpenAI credentials if they're missing
@@ -398,6 +428,9 @@ export class OpenaiController extends BaseChatbotController<OpenaiBot, OpenaiDto
             }
           : undefined,
         speechToText: data.speechToText,
+        responseFormat: data.responseFormat,
+        ttsModel: data.ttsModel,
+        ttsVoice: data.ttsVoice,
       };
 
       if (existingSettings) {

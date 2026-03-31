@@ -75,6 +75,10 @@ export abstract class BaseChatbotController<BotType = any, BotData extends BaseC
     msg?: any,
   ): Promise<void>;
 
+  protected async resolveBotForMessage(content: string, instance: any, session: any, settings: any): Promise<any> {
+    return await this.findBotTrigger(this.botRepository, content, instance, session);
+  }
+
   // Method to get the fallback bot ID from settings
   protected abstract getFallbackBotId(settings: any): string | undefined;
 
@@ -805,7 +809,7 @@ export abstract class BaseChatbotController<BotType = any, BotData extends BaseC
       // const integrationType = this.getIntegrationType();
 
       // Find a bot for this message
-      let findBot: any = await this.findBotTrigger(this.botRepository, content, instance, session);
+      let findBot: any = await this.resolveBotForMessage(content, instance, session, settings);
 
       // If no bot is found, try to use fallback
       if (!findBot) {
