@@ -654,7 +654,7 @@ export class BaileysStartupService extends ChannelStartupService {
       fireInitQueries: true,
       connectTimeoutMs: 30_000,
       keepAliveIntervalMs: 30_000,
-      qrTimeout: 45_000,
+      qrTimeout: 60_000,
       emitOwnEvents: false,
       shouldIgnoreJid: (jid) => {
         if (this.localSettings.syncFullHistory && isJidGroup(jid)) {

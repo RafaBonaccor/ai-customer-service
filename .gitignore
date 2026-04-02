@@ -49,3 +49,4 @@ lerna-debug.log*
 
 # Nested repo
 /assistant-core/
+/ai-secretary-web/
