@@ -1,0 +1,134 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="WhatsApp AI Workflow">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="start" value="Webhook Evolution API (MESSAGES_UPSERT)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="300" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="save" value="Salva evento nel DB" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="100" width="300" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="checkSender" value="Mittente = Admin?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;" vertex="1" parent="1">
+          <mxGeometry x="400" y="200" width="300" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="adminCmd" value="Esegui comando (pausa / attiva)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;" vertex="1" parent="1">
+          <mxGeometry x="100" y="320" width="300" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="updateState" value="Aggiorna stato (auto/manual)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="400" width="300" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="adminEnd" value="Fine flusso admin" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="100" y="490" width="300" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="checkActive" value="Automazione attiva?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;" vertex="1" parent="1">
+          <mxGeometry x="500" y="320" width="300" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ignore" value="Non rispondere" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;" vertex="1" parent="1">
+          <mxGeometry x="850" y="450" width="250" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="checkType" value="Messaggio audio?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;" vertex="1" parent="1">
+          <mxGeometry x="500" y="450" width="300" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="stt" value="STT (speech-to-text)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="580" width="250" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="llm" value="LLM (genera risposta)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;" vertex="1" parent="1">
+          <mxGeometry x="500" y="580" width="300" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="checkOutputType" value="Rispondere in audio?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;" vertex="1" parent="1">
+          <mxGeometry x="500" y="670" width="300" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="tts" value="TTS (voce)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="850" y="680" width="250" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="send" value="Invia risposta via Evolution API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;" vertex="1" parent="1">
+          <mxGeometry x="500" y="800" width="300" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="done" value="Fine flusso" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="560" y="900" width="180" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="edge-start-save" edge="1" source="start" target="save" parent="1" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge-save-checkSender" edge="1" source="save" target="checkSender" parent="1" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="edge-checkSender-adminCmd" value="Sì" edge="1" source="checkSender" target="adminCmd" parent="1" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="edge-adminCmd-updateState" edge="1" source="adminCmd" target="updateState" parent="1" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge-updateState-adminEnd" edge="1" source="updateState" target="adminEnd" parent="1" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge-checkSender-checkActive" value="No" edge="1" source="checkSender" target="checkActive" parent="1" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="edge-checkActive-ignore" value="No" edge="1" source="checkActive" target="ignore" parent="1" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge-checkActive-checkType" value="Sì" edge="1" source="checkActive" target="checkType" parent="1" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="edge-checkType-stt" value="Sì" edge="1" source="checkType" target="stt" parent="1" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge-stt-llm" edge="1" source="stt" target="llm" parent="1" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="edge-checkType-llm" value="No" edge="1" source="checkType" target="llm" parent="1" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="edge-llm-checkOutputType" edge="1" source="llm" target="checkOutputType" parent="1" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge-checkOutputType-tts" value="Sì" edge="1" source="checkOutputType" target="tts" parent="1" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge-checkOutputType-send" value="No" edge="1" source="checkOutputType" target="send" parent="1" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="edge-tts-send" edge="1" source="tts" target="send" parent="1" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge-ignore-done" edge="1" source="ignore" target="done" parent="1" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge-send-done" edge="1" source="send" target="done" parent="1" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge-adminEnd-done" edge="1" source="adminEnd" target="done" parent="1" style="endArrow=block;html=1;strokeWidth=2;rounded=0;dashed=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
