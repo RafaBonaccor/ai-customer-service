@@ -1,385 +1,145 @@
-<mxfile host="app.diagrams.net" modified="2026-03-30T18:25:00.000Z" agent="Codex" version="24.7.17">
+<mxfile host="app.diagrams.net" modified="2026-04-07T20:20:00.000Z" agent="Codex" version="24.7.17">
   <diagram id="assistant-platform-flow" name="Assistant Platform Flow">
-    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+    <mxGraphModel dx="1920" dy="1080" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1400" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="frontend" value="Admin Console&#xa;Operational Backoffice" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="730" y="40" width="220" height="80" as="geometry" />
+
+        <mxCell id="title" value="AI Secretary Architecture Map&#xa;componenti, flussi, chiamate e tooling operativo" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=28;fontStyle=1;fontColor=#1f1a17;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="900" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="core" value="Assistant Core&#xa;Product Backend&#xa;&#xa;- tenants&#xa;- subscriptions&#xa;- limits&#xa;- AI orchestration&#xa;- secretary logic&#xa;- calendar workflows" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;" vertex="1" parent="1">
-          <mxGeometry x="620" y="180" width="380" height="180" as="geometry" />
+
+        <mxCell id="legend" value="Legenda flussi&#xa;&#xa;Blu = autenticazione utente + onboarding&#xa;Verde = runtime messaggi WhatsApp&#xa;Arancione = Google OAuth + Calendar&#xa;Viola = tooling / deploy / runtime operativo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d6b656;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1600" y="40" width="420" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="conversion" value="Conversion Engine&#xa;Revenue Automation&#xa;&#xa;- follow-up automatici&#xa;- reminder&#xa;- lead recovery&#xa;- no-show winback&#xa;- campaign rules" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f4cccc;strokeColor=#cc0000;fontSize=15;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="1330" y="180" width="270" height="180" as="geometry" />
+
+        <mxCell id="owner" value="Business Owner / Admin&#xa;&#xa;- registra account&#xa;- fa onboarding&#xa;- collega WhatsApp&#xa;- collega Google Calendar" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="120" width="220" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="supabase" value="Supabase&#xa;Auth + Postgres&#xa;&#xa;- users&#xa;- tenant data&#xa;- plan status&#xa;- usage counters" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=15;" vertex="1" parent="1">
-          <mxGeometry x="320" y="220" width="220" height="140" as="geometry" />
+
+        <mxCell id="web" value="ai-secretary-web&#xa;Next.js frontend + BFF routes&#xa;&#xa;- /login / signup&#xa;- /onboarding&#xa;- /api/* proxy verso assistant-core&#xa;- Supabase session nel browser" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="100" width="380" height="180" as="geometry" />
         </mxCell>
-        <mxCell id="stripe" value="Stripe&#xa;Billing Source of Truth&#xa;&#xa;- checkout&#xa;- renewals&#xa;- failed payments" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=15;" vertex="1" parent="1">
-          <mxGeometry x="1050" y="220" width="220" height="140" as="geometry" />
+
+        <mxCell id="supabase" value="Supabase Auth&#xa;&#xa;- email/password&#xa;- Google social login&#xa;- session token client-side" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="830" y="110" width="250" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="gateway" value="Channel Gateway&#xa;Provider Adapters&#xa;&#xa;- event normalization&#xa;- outbound commands&#xa;- provider abstraction" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=15;" vertex="1" parent="1">
-          <mxGeometry x="650" y="450" width="360" height="140" as="geometry" />
+
+        <mxCell id="core" value="assistant-core&#xa;Spring Boot product backend&#xa;&#xa;- app_users + tenant_user_memberships&#xa;- tenants / subscriptions / channel_instances&#xa;- AI profiles + prompt orchestration&#xa;- intent detection + availability domain&#xa;- Google OAuth + credential store&#xa;- WhatsApp provider router" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="490" y="390" width="500" height="250" as="geometry" />
         </mxCell>
-        <mxCell id="evolution" value="Evolution API&#xa;WhatsApp Transport Adapter" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=15;" vertex="1" parent="1">
-          <mxGeometry x="430" y="670" width="240" height="90" as="geometry" />
+
+        <mxCell id="coredb" value="Assistant data store&#xa;Postgres / Supabase DB&#xa;&#xa;- tenants&#xa;- channel_instances&#xa;- app_users&#xa;- memberships&#xa;- calendar domain&#xa;- google credentials" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="110" y="430" width="280" height="180" as="geometry" />
         </mxCell>
-        <mxCell id="waba" value="WhatsApp Business API&#xa;Cloud / Business Adapter" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=15;" vertex="1" parent="1">
-          <mxGeometry x="1010" y="670" width="260" height="90" as="geometry" />
+
+        <mxCell id="llm" value="LLM provider&#xa;OpenAI / chatmock&#xa;&#xa;- chat completions&#xa;- prompt + tool context&#xa;- reply draft" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="120" y="690" width="270" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="user" value="Customer Sales Channel&#xa;WhatsApp" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=15;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="770" y="840" width="160" height="80" as="geometry" />
+
+        <mxCell id="google" value="Google APIs&#xa;OAuth + Calendar&#xa;&#xa;- OAuth consent screen&#xa;- calendars.list&#xa;- events.list / create / update" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="400" width="310" height="190" as="geometry" />
         </mxCell>
-        <mxCell id="calendar" value="Calendar Connectors&#xa;&#xa;- Google Calendar&#xa;- Outlook Calendar" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="1370" y="450" width="220" height="120" as="geometry" />
+
+        <mxCell id="evolution" value="evolution-api&#xa;Node.js / TypeScript transport layer&#xa;&#xa;- Baileys runtime&#xa;- pairing QR / code&#xa;- inbound webhooks&#xa;- outbound sendMessage&#xa;- provider adapters" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="760" width="480" height="210" as="geometry" />
         </mxCell>
-        <mxCell id="voice" value="Voice / Audio Services&#xa;&#xa;- STT&#xa;- TTS&#xa;- future phone calls" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="330" y="450" width="220" height="120" as="geometry" />
+
+        <mxCell id="redis" value="Redis&#xa;provider cache / sessions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="760" width="170" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="billing-flow" value="Stripe Webhook&#xa;updates subscription state" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry x="1000" y="130" width="220" height="40" as="geometry" />
+
+        <mxCell id="evolutiondb" value="Evolution Postgres&#xa;provider state / messages" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="760" width="190" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="msg-flow" value="Inbound / Outbound&#xa;normalized messaging events" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry x="720" y="395" width="220" height="40" as="geometry" />
+
+        <mxCell id="whatsapp" value="WhatsApp transport / provider&#xa;&#xa;- linked device via Baileys&#xa;- opzionale WhatsApp Business / Cloud API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="560" y="1070" width="350" height="130" as="geometry" />
         </mxCell>
-        <mxCell id="conversion-note" value="High-value layer: reminders and lead recovery can raise revenue materially" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="1300" y="390" width="330" height="40" as="geometry" />
+
+        <mxCell id="customer" value="Customer on WhatsApp&#xa;&#xa;- invia messaggi&#xa;- chiede disponibilita&#xa;- riceve risposte / reminder" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="1260" width="250" height="110" as="geometry" />
         </mxCell>
-        <mxCell id="channel-note" value="Primary customer interface = WhatsApp&#xa;Admin Console = setup, analytics, billing, operations" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="1030" y="40" width="420" height="60" as="geometry" />
+
+        <mxCell id="tooling" value="Tooling / runtime operativo&#xa;&#xa;- Docker Compose locale&#xa;- Maven + Spring Boot&#xa;- npm / Next.js&#xa;- Vercel per il frontend&#xa;- VPS + Caddy per backend / evolution&#xa;- GitHub per versionamento" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3e5f5;strokeColor=#9673a6;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1490" y="270" width="360" height="220" as="geometry" />
         </mxCell>
-        <mxCell id="edge-frontend-core" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="frontend" target="core">
+
+        <mxCell id="flows" value="Flussi chiave&#xa;&#xa;1. Login / signup&#xa;owner -&gt; web -&gt; Supabase Auth -&gt; sync app_user su assistant-core&#xa;&#xa;2. Onboarding tenant&#xa;web -&gt; /api/onboarding/mock -&gt; tenant + membership owner + channel instance&#xa;&#xa;3. WhatsApp pairing&#xa;web -&gt; assistant-core -&gt; evolution-api -&gt; Baileys / WhatsApp&#xa;&#xa;4. Google Calendar&#xa;web -&gt; assistant-core -&gt; Google OAuth -&gt; callback -&gt; calendar credentials&#xa;&#xa;5. Runtime conversazione&#xa;customer -&gt; WhatsApp -&gt; evolution webhook -&gt; assistant-core -&gt; LLM / calendar -&gt; evolution -&gt; customer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d6b656;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1490" y="540" width="500" height="360" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-owner-web" value="UI / onboarding" style="endArrow=block;html=1;rounded=0;strokeWidth=3;strokeColor=#4a86e8;fontColor=#4a86e8;" edge="1" parent="1" source="owner" target="web">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge-core-supabase" value="reads / writes" style="endArrow=block;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="core" target="supabase">
+
+        <mxCell id="edge-web-supabase" value="signUp / signIn / signInWithOAuth" style="endArrow=block;html=1;rounded=0;strokeWidth=3;strokeColor=#4a86e8;fontColor=#4a86e8;" edge="1" parent="1" source="web" target="supabase">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge-stripe-core" value="billing webhooks" style="endArrow=block;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="stripe" target="core">
+
+        <mxCell id="edge-web-core" value="BFF routes /api/* + Basic Auth" style="endArrow=block;html=1;rounded=0;strokeWidth=3;strokeColor=#4a86e8;fontColor=#4a86e8;" edge="1" parent="1" source="web" target="core">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge-core-gateway" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="core" target="gateway">
+
+        <mxCell id="edge-core-db" value="JPA / Flyway / repositories" style="endArrow=block;html=1;rounded=0;strokeWidth=3;strokeColor=#4a86e8;fontColor=#4a86e8;" edge="1" parent="1" source="core" target="coredb">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge-core-conversion" value="journeys / segments / triggers" style="endArrow=block;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="core" target="conversion">
+
+        <mxCell id="edge-web-google" value="browser redirect to consent" style="endArrow=block;html=1;rounded=0;strokeWidth=3;strokeColor=#e69138;fontColor=#e69138;dashed=1;" edge="1" parent="1" source="web" target="google">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge-conversion-gateway" value="send follow-ups" style="endArrow=block;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="conversion" target="gateway">
+
+        <mxCell id="edge-core-google" value="OAuth state + calendars.list + events.*" style="endArrow=block;html=1;rounded=0;strokeWidth=3;strokeColor=#e69138;fontColor=#e69138;" edge="1" parent="1" source="core" target="google">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge-conversion-calendar" value="reminder / no-show data" style="endArrow=block;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="conversion" target="calendar">
+
+        <mxCell id="edge-core-llm" value="chat completions / reply generation" style="endArrow=block;html=1;rounded=0;strokeWidth=3;strokeColor=#3c8d2f;fontColor=#3c8d2f;" edge="1" parent="1" source="core" target="llm">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge-core-calendar" value="appointments / availability" style="endArrow=block;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="core" target="calendar">
+
+        <mxCell id="edge-core-evolution" value="create instance / connect / send / state" style="endArrow=block;html=1;rounded=0;strokeWidth=3;strokeColor=#3c8d2f;fontColor=#3c8d2f;" edge="1" parent="1" source="core" target="evolution">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge-core-voice" value="audio orchestration" style="endArrow=block;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="core" target="voice">
+
+        <mxCell id="edge-evolution-core" value="webhooks: messages.upsert, qrcode, connection_update" style="endArrow=block;html=1;rounded=0;strokeWidth=3;strokeColor=#3c8d2f;fontColor=#3c8d2f;dashed=1;" edge="1" parent="1" source="evolution" target="core">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1030" y="720" />
+              <mxPoint x="1040" y="540" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge-evolution-redis" value="cache / session state" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#9673a6;fontColor=#9673a6;" edge="1" parent="1" source="evolution" target="redis">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge-gateway-evolution" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="gateway" target="evolution">
+
+        <mxCell id="edge-evolution-db" value="provider persistence" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#9673a6;fontColor=#9673a6;" edge="1" parent="1" source="evolution" target="evolutiondb">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge-gateway-waba" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="gateway" target="waba">
+
+        <mxCell id="edge-evolution-whatsapp" value="linked device / transport" style="endArrow=block;html=1;rounded=0;strokeWidth=3;strokeColor=#3c8d2f;fontColor=#3c8d2f;" edge="1" parent="1" source="evolution" target="whatsapp">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge-evolution-user" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="evolution" target="user">
+
+        <mxCell id="edge-customer-whatsapp" value="inbound / outbound chat" style="endArrow=block;html=1;rounded=0;strokeWidth=3;strokeColor=#3c8d2f;fontColor=#3c8d2f;" edge="1" parent="1" source="customer" target="whatsapp">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge-waba-user" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1" source="waba" target="user">
+
+        <mxCell id="edge-tooling-web" value="deploy frontend" style="endArrow=none;html=1;rounded=0;strokeWidth=2;strokeColor=#9673a6;fontColor=#9673a6;dashed=1;" edge="1" parent="1" source="tooling" target="web">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge-user-evolution" value="messages / media" style="endArrow=block;html=1;rounded=0;strokeWidth=2;dashed=1;" edge="1" parent="1" source="user" target="evolution">
+
+        <mxCell id="edge-tooling-core" value="deploy backend" style="endArrow=none;html=1;rounded=0;strokeWidth=2;strokeColor=#9673a6;fontColor=#9673a6;dashed=1;" edge="1" parent="1" source="tooling" target="core">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge-user-waba" value="messages / media" style="endArrow=block;html=1;rounded=0;strokeWidth=2;dashed=1;" edge="1" parent="1" source="user" target="waba">
+
+        <mxCell id="edge-tooling-evolution" value="deploy transport layer" style="endArrow=none;html=1;rounded=0;strokeWidth=2;strokeColor=#9673a6;fontColor=#9673a6;dashed=1;" edge="1" parent="1" source="tooling" target="evolution">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
-  <diagram id="operational-flows" name="Operational Flows">
-    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
-      <root>
-        <mxCell id="0-2" />
-        <mxCell id="1-2" parent="0-2" />
-        <mxCell id="msg-title" value="Message / Audio / Calendar / Subscription / Conversion Flows" style="text;html=1;strokeColor=none;fillColor=none;fontSize=20;fontStyle=1;align=left;" vertex="1" parent="1-2">
-          <mxGeometry x="40" y="20" width="700" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="flow1a" value="1. User sends text or audio on WhatsApp" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1-2">
-          <mxGeometry x="60" y="90" width="220" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="flow1b" value="2. Channel Gateway normalizes event&#xa;text / audio / metadata / tenant" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1-2">
-          <mxGeometry x="340" y="90" width="260" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="flow1c" value="3. Assistant Core checks&#xa;- tenant&#xa;- subscription&#xa;- limits&#xa;- active workflow" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1-2">
-          <mxGeometry x="660" y="90" width="260" height="100" as="geometry" />
-        </mxCell>
-        <mxCell id="flow1d" value="4. If audio: STT&#xa;If text: pass-through" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1-2">
-          <mxGeometry x="980" y="90" width="180" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="flow1e" value="5. AI orchestration&#xa;prompt + memory + business rules" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1-2">
-          <mxGeometry x="1220" y="90" width="230" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="flow1f" value="6. Output&#xa;- text&#xa;- audio&#xa;- action request" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1-2">
-          <mxGeometry x="1510" y="90" width="180" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="flow1g" value="7. Conversion Engine&#xa;schedules reminder / follow-up / recovery if needed" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f4cccc;strokeColor=#cc0000;fontStyle=1;" vertex="1" parent="1-2">
-          <mxGeometry x="1510" y="190" width="220" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="flow2a" value="Calendar Intent" style="swimlane;html=1;whiteSpace=wrap;startSize=28;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;" vertex="1" parent="1-2">
-          <mxGeometry x="60" y="260" width="520" height="210" as="geometry" />
-        </mxCell>
-        <mxCell id="flow2b" value="User asks to book / move / cancel" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="flow2a">
-          <mxGeometry x="20" y="50" width="180" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="flow2c" value="Assistant Core extracts intent + entities&#xa;date, service, person, timezone" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="flow2a">
-          <mxGeometry x="230" y="50" width="250" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="flow2d" value="Calendar Connector&#xa;Google / Outlook / other" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="flow2a">
-          <mxGeometry x="230" y="140" width="250" height="50" as="geometry" />
-        </mxCell>
-        <mxCell id="flow3a" value="Subscription Flow" style="swimlane;html=1;whiteSpace=wrap;startSize=28;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;" vertex="1" parent="1-2">
-          <mxGeometry x="680" y="260" width="480" height="210" as="geometry" />
-        </mxCell>
-        <mxCell id="flow3b" value="User starts checkout" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="flow3a">
-          <mxGeometry x="20" y="50" width="140" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="flow3c" value="Stripe handles payment" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="flow3a">
-          <mxGeometry x="190" y="50" width="140" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="flow3d" value="Webhook updates Supabase&#xa;plan / status / billing period" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="flow3a">
-          <mxGeometry x="350" y="50" width="110" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="flow3e" value="Assistant Core enforces usage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="flow3a">
-          <mxGeometry x="190" y="150" width="180" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="flow4a" value="Output Decision Rules" style="swimlane;html=1;whiteSpace=wrap;startSize=28;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;" vertex="1" parent="1-2">
-          <mxGeometry x="1260" y="260" width="430" height="210" as="geometry" />
-        </mxCell>
-        <mxCell id="flow4b" value="If provider supports text only&#xa;- send text" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="flow4a">
-          <mxGeometry x="20" y="50" width="180" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="flow4c" value="If TTS available + plan allows&#xa;- generate audio&#xa;- send voice note" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="flow4a">
-          <mxGeometry x="220" y="50" width="180" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="flow4d" value="If rate limit exceeded&#xa;- polite block / fallback" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="flow4a">
-          <mxGeometry x="120" y="150" width="180" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="flow5a" value="Conversion Engine" style="swimlane;html=1;whiteSpace=wrap;startSize=28;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;" vertex="1" parent="1-2">
-          <mxGeometry x="60" y="540" width="820" height="230" as="geometry" />
-        </mxCell>
-        <mxCell id="flow5b" value="Trigger&#xa;- no reply&#xa;- incomplete booking&#xa;- missed appointment&#xa;- stale lead" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="flow5a">
-          <mxGeometry x="20" y="60" width="170" height="110" as="geometry" />
-        </mxCell>
-        <mxCell id="flow5c" value="Journey logic&#xa;- delay rules&#xa;- retry cadence&#xa;- stop conditions&#xa;- plan limits" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f4cccc;strokeColor=#cc0000;fontStyle=1;" vertex="1" parent="flow5a">
-          <mxGeometry x="230" y="60" width="190" height="110" as="geometry" />
-        </mxCell>
-        <mxCell id="flow5d" value="Message generation&#xa;- reminder&#xa;- follow-up&#xa;- urgency / scarcity copy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="flow5a">
-          <mxGeometry x="460" y="60" width="180" height="110" as="geometry" />
-        </mxCell>
-        <mxCell id="flow5e" value="Send via channel&#xa;WhatsApp text / audio" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="flow5a">
-          <mxGeometry x="680" y="80" width="120" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="flow5f" value="Examples&#xa;&quot;Vuoi ancora prenotare?&quot;&#xa;&quot;Ultimo posto disponibile oggi&quot;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="flow5a">
-          <mxGeometry x="230" y="180" width="340" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="flow5g" value="Business impact: higher conversion rate and recovered revenue" style="text;html=1;strokeColor=none;fillColor=none;fontSize=15;fontStyle=1;align=left;" vertex="1" parent="flow5a">
-          <mxGeometry x="20" y="15" width="520" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="e1" value="" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="1-2" source="flow1a" target="flow1b"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e2" value="" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="1-2" source="flow1b" target="flow1c"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e3" value="" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="1-2" source="flow1c" target="flow1d"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e4" value="" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="1-2" source="flow1d" target="flow1e"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e5" value="" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="1-2" source="flow1e" target="flow1f"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e5b" value="schedule if needed" style="endArrow=block;html=1;strokeWidth=2;dashed=1;" edge="1" parent="1-2" source="flow1f" target="flow1g"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e6" value="" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="flow2a" source="flow2b" target="flow2c"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e7" value="" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="flow2a" source="flow2c" target="flow2d"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e8" value="" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="flow3a" source="flow3b" target="flow3c"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e9" value="" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="flow3a" source="flow3c" target="flow3d"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e10" value="" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="flow3a" source="flow3d" target="flow3e"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e11" value="" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="flow5a" source="flow5b" target="flow5c"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e12" value="" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="flow5a" source="flow5c" target="flow5d"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e13" value="" style="endArrow=block;html=1;strokeWidth=2;" edge="1" parent="flow5a" source="flow5d" target="flow5e"><mxGeometry relative="1" as="geometry" /></mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
-  <diagram id="service-layout" name="Service Layout">
-    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
-      <root>
-        <mxCell id="0-3" />
-        <mxCell id="1-3" parent="0-3" />
-        <mxCell id="layout-title" value="Suggested Service / Repo Layout" style="text;html=1;strokeColor=none;fillColor=none;fontSize=20;fontStyle=1;align=left;" vertex="1" parent="1-3">
-          <mxGeometry x="40" y="20" width="500" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="mono" value="Monorepo" style="swimlane;html=1;whiteSpace=wrap;startSize=30;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;" vertex="1" parent="1-3">
-          <mxGeometry x="40" y="70" width="1680" height="860" as="geometry" />
-        </mxCell>
-        <mxCell id="app1" value="apps/assistant-core&#xa;&#xa;- API / backend&#xa;- orchestration&#xa;- billing enforcement&#xa;- calendar workflows&#xa;- business rules" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;" vertex="1" parent="mono">
-          <mxGeometry x="40" y="60" width="280" height="170" as="geometry" />
-        </mxCell>
-        <mxCell id="app1b" value="apps/conversion-engine&#xa;&#xa;- follow-up automation&#xa;- reminders&#xa;- lead recovery&#xa;- campaign / journey rules&#xa;- revenue experiments" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f4cccc;strokeColor=#cc0000;fontSize=15;fontStyle=1;" vertex="1" parent="mono">
-          <mxGeometry x="40" y="260" width="280" height="170" as="geometry" />
-        </mxCell>
-        <mxCell id="app2" value="apps/channel-gateway&#xa;&#xa;- inbound webhooks&#xa;- outbound provider commands&#xa;- provider normalization" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=15;" vertex="1" parent="mono">
-          <mxGeometry x="360" y="60" width="300" height="170" as="geometry" />
-        </mxCell>
-        <mxCell id="app3" value="apps/admin-web&#xa;&#xa;- operational console&#xa;- tenant config&#xa;- usage / plans&#xa;- channel setup" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=15;" vertex="1" parent="mono">
-          <mxGeometry x="700" y="60" width="300" height="170" as="geometry" />
-        </mxCell>
-        <mxCell id="app4" value="apps/voice-gateway&#xa;&#xa;- future phone calls&#xa;- SIP / Twilio&#xa;- realtime audio bridge" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=15;" vertex="1" parent="mono">
-          <mxGeometry x="1040" y="60" width="300" height="170" as="geometry" />
-        </mxCell>
-        <mxCell id="pkg1" value="packages/domain&#xa;&#xa;- entities&#xa;- use cases&#xa;- policies&#xa;- quotas / plans" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="mono">
-          <mxGeometry x="390" y="300" width="220" height="140" as="geometry" />
-        </mxCell>
-        <mxCell id="pkg2" value="packages/provider-sdk&#xa;&#xa;- messaging interfaces&#xa;- normalized event types&#xa;- capability matrix" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="mono">
-          <mxGeometry x="650" y="300" width="240" height="140" as="geometry" />
-        </mxCell>
-        <mxCell id="pkg3" value="packages/connectors&#xa;&#xa;- stripe&#xa;- supabase&#xa;- google calendar&#xa;- outlook&#xa;- crm" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="mono">
-          <mxGeometry x="930" y="300" width="240" height="140" as="geometry" />
-        </mxCell>
-        <mxCell id="pkg4" value="packages/ai&#xa;&#xa;- prompts&#xa;- STT/TTS adapters&#xa;- model profiles&#xa;- safety / fallback" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="mono">
-          <mxGeometry x="1210" y="300" width="240" height="140" as="geometry" />
-        </mxCell>
-        <mxCell id="pkg5" value="packages/shared&#xa;&#xa;- config&#xa;- logging&#xa;- errors&#xa;- utils" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="mono">
-          <mxGeometry x="1490" y="300" width="150" height="140" as="geometry" />
-        </mxCell>
-        <mxCell id="ext1" value="Supabase" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="mono">
-          <mxGeometry x="90" y="520" width="160" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="ext2" value="Stripe" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="mono">
-          <mxGeometry x="310" y="520" width="160" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="ext3" value="Evolution API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="mono">
-          <mxGeometry x="530" y="520" width="180" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="ext4" value="WhatsApp Business API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="mono">
-          <mxGeometry x="770" y="520" width="210" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="ext5" value="Google / Outlook Calendar" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="mono">
-          <mxGeometry x="1040" y="520" width="220" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="ext6" value="OpenAI / local AI / TTS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="mono">
-          <mxGeometry x="1320" y="520" width="220" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="note0" value="Revenue note: Conversion Engine is a priced capability, not a small feature" style="text;html=1;strokeColor=none;fillColor=none;fontSize=16;fontStyle=1;align=left;" vertex="1" parent="mono">
-          <mxGeometry x="40" y="620" width="700" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="note00" value="Customer-facing UX can live mostly in WhatsApp; backoffice stays separate" style="text;html=1;strokeColor=none;fillColor=none;fontSize=16;fontStyle=1;align=left;" vertex="1" parent="mono">
-          <mxGeometry x="40" y="585" width="720" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="note1" value="Rule: business logic stays out of provider adapters" style="text;html=1;strokeColor=none;fillColor=none;fontSize=16;fontStyle=1;align=left;" vertex="1" parent="mono">
-          <mxGeometry x="40" y="660" width="520" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="note2" value="Rule: all connectors depend on normalized contracts, not on Evolution internals" style="text;html=1;strokeColor=none;fillColor=none;fontSize=16;fontStyle=1;align=left;" vertex="1" parent="mono">
-          <mxGeometry x="40" y="710" width="760" height="30" as="geometry" />
-        </mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
-  <diagram id="whatsapp-ai-workflow" name="WhatsApp AI Workflow">
-    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
-      <root>
-        <mxCell id="0-4" />
-        <mxCell id="1-4" parent="0-4" />
-        <mxCell id="wa-start" value="Webhook Evolution API (MESSAGES_UPSERT)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1-4">
-          <mxGeometry x="400" y="20" width="300" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-save" value="Salva evento nel DB" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1-4">
-          <mxGeometry x="400" y="100" width="300" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-checkSender" value="Mittente = Admin?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;" vertex="1" parent="1-4">
-          <mxGeometry x="400" y="200" width="300" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-adminCmd" value="Esegui comando (pausa / attiva)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;" vertex="1" parent="1-4">
-          <mxGeometry x="100" y="320" width="300" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-updateState" value="Aggiorna stato (auto/manual)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1-4">
-          <mxGeometry x="100" y="400" width="300" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-adminEnd" value="Fine flusso admin" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1-4">
-          <mxGeometry x="100" y="490" width="300" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-checkActive" value="Automazione attiva?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;" vertex="1" parent="1-4">
-          <mxGeometry x="500" y="320" width="300" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-ignore" value="Non rispondere" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;" vertex="1" parent="1-4">
-          <mxGeometry x="850" y="450" width="250" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-checkType" value="Messaggio audio?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;" vertex="1" parent="1-4">
-          <mxGeometry x="500" y="450" width="300" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-stt" value="STT (speech-to-text)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1-4">
-          <mxGeometry x="300" y="580" width="250" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-llm" value="LLM (genera risposta)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;" vertex="1" parent="1-4">
-          <mxGeometry x="500" y="580" width="300" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-checkOutputType" value="Rispondere in audio?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;" vertex="1" parent="1-4">
-          <mxGeometry x="500" y="670" width="300" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-tts" value="TTS (voce)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1-4">
-          <mxGeometry x="850" y="680" width="250" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-send" value="Invia risposta via Evolution API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;" vertex="1" parent="1-4">
-          <mxGeometry x="500" y="800" width="300" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-done" value="Fine flusso" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1-4">
-          <mxGeometry x="560" y="900" width="180" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-edge-start-save" edge="1" source="wa-start" target="wa-save" parent="1-4" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-edge-save-checkSender" edge="1" source="wa-save" target="wa-checkSender" parent="1-4" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-edge-checkSender-adminCmd" value="Si" edge="1" source="wa-checkSender" target="wa-adminCmd" parent="1-4" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-edge-adminCmd-updateState" edge="1" source="wa-adminCmd" target="wa-updateState" parent="1-4" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-edge-updateState-adminEnd" edge="1" source="wa-updateState" target="wa-adminEnd" parent="1-4" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-edge-checkSender-checkActive" value="No" edge="1" source="wa-checkSender" target="wa-checkActive" parent="1-4" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-edge-checkActive-ignore" value="No" edge="1" source="wa-checkActive" target="wa-ignore" parent="1-4" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-edge-checkActive-checkType" value="Si" edge="1" source="wa-checkActive" target="wa-checkType" parent="1-4" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-edge-checkType-stt" value="Si" edge="1" source="wa-checkType" target="wa-stt" parent="1-4" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-edge-stt-llm" edge="1" source="wa-stt" target="wa-llm" parent="1-4" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-edge-checkType-llm" value="No" edge="1" source="wa-checkType" target="wa-llm" parent="1-4" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-edge-llm-checkOutputType" edge="1" source="wa-llm" target="wa-checkOutputType" parent="1-4" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-edge-checkOutputType-tts" value="Si" edge="1" source="wa-checkOutputType" target="wa-tts" parent="1-4" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-edge-checkOutputType-send" value="No" edge="1" source="wa-checkOutputType" target="wa-send" parent="1-4" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-edge-tts-send" edge="1" source="wa-tts" target="wa-send" parent="1-4" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-edge-ignore-done" edge="1" source="wa-ignore" target="wa-done" parent="1-4" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-edge-send-done" edge="1" source="wa-send" target="wa-done" parent="1-4" style="endArrow=block;html=1;strokeWidth=2;rounded=0;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="wa-edge-adminEnd-done" edge="1" source="wa-adminEnd" target="wa-done" parent="1-4" style="endArrow=block;html=1;strokeWidth=2;rounded=0;dashed=1;">
-          <mxGeometry relative="1" as="geometry" />
+
+        <mxCell id="note-future" value="Nota: il provider router in assistant-core supporta sia `evolution_baileys` sia `whatsapp_business`.&#xa;Nella pratica attuale il flusso principale passa ancora da evolution-api." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="980" width="470" height="90" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

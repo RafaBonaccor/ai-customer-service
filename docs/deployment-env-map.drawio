@@ -1,0 +1,138 @@
+<mxfile host="app.diagrams.net" modified="2026-04-09T10:30:00.000Z" agent="Codex" version="24.7.17">
+  <diagram id="deployment-env-map" name="Deployment Env Map">
+    <mxGraphModel dx="1920" dy="1080" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="AI Secretary Deployment &amp; Secrets Map&#xa;Vercel, VPS, Supabase, Google OAuth, env distribuite e procedura di rotazione" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=28;fontStyle=1;fontColor=#1f1a17;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1450" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend" value="Legenda&#xa;&#xa;Blu = frontend / Vercel&#xa;Verde = backend / VPS&#xa;Giallo = database / auth esterni&#xa;Arancione = Google OAuth / Calendar&#xa;Rosso = segreti critici da ruotare&#xa;Viola = note operative / recovery" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3e8ff;strokeColor=#9673a6;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1890" y="40" width="430" height="165" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dns" value="DNS / Domain Layer&#xa;zapatende.com via Porkbun&#xa;&#xa;- zapatende.com -&gt; Vercel frontend&#xa;- app.zapatende.com -&gt; Vercel frontend&#xa;- api.zapatende.com -&gt; VPS + Caddy&#xa;- wa.zapatende.com opzionale" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="850" y="100" width="520" height="170" as="geometry" />
+        </mxCell>
+
+        <mxCell id="user" value="Utente / Admin&#xa;&#xa;- usa browser&#xa;- apre frontend&#xa;- fa onboarding&#xa;- invia credenziali auth" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="120" width="220" height="120" as="geometry" />
+        </mxCell>
+
+        <mxCell id="vercel" value="Vercel Project&#xa;ai-secretary-fe&#xa;&#xa;Salva queste env:&#xa;- NEXT_PUBLIC_APP_URL&#xa;- NEXT_PUBLIC_SUPABASE_URL&#xa;- NEXT_PUBLIC_SUPABASE_ANON_KEY&#xa;- ASSISTANT_CORE_BASE_URL&#xa;- ASSISTANT_CORE_BASIC_USER&#xa;- ASSISTANT_CORE_BASIC_PASSWORD&#xa;&#xa;Rischio se esposte:&#xa;- basic auth backend&#xa;- config frontend sbagliata / deploy rotto" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="100" width="410" height="300" as="geometry" />
+        </mxCell>
+
+        <mxCell id="frontend" value="Runtime Frontend&#xa;Next.js app + BFF routes&#xa;&#xa;- browser usa NEXT_PUBLIC_*&#xa;- server routes usano ASSISTANT_CORE_*&#xa;- deploy trigger da GitHub / Vercel" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d4e1f5;strokeColor=#6c8ebf;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="320" y="440" width="410" height="170" as="geometry" />
+        </mxCell>
+
+        <mxCell id="supabase" value="Supabase Project&#xa;&#xa;Componenti usati:&#xa;- Auth (email/password, sessioni)&#xa;- Postgres assistant-core schema&#xa;&#xa;Segreti / valori da conservare:&#xa;- Project URL&#xa;- anon public key&#xa;- DB host/user/password&#xa;- service role key NON nel frontend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="790" y="360" width="430" height="250" as="geometry" />
+        </mxCell>
+
+        <mxCell id="vps" value="Contabo VPS&#xa;Caddy + Docker runtime&#xa;&#xa;Servizi hostati:&#xa;- assistant-core&#xa;- evolution-api&#xa;- redis&#xa;- evolution postgres locale&#xa;- caddy reverse proxy&#xa;&#xa;File critici sul server:&#xa;- /opt/assistant-core/.env&#xa;- /opt/assistant-core/docker-compose.yml&#xa;- /opt/evolution-api/.env&#xa;- /etc/caddy/Caddyfile" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1330" y="320" width="470" height="300" as="geometry" />
+        </mxCell>
+
+        <mxCell id="assistantenv" value="assistant-core .env sul VPS&#xa;&#xa;Salva queste env:&#xa;- SPRING_DATASOURCE_URL&#xa;- SPRING_DATASOURCE_USERNAME&#xa;- SPRING_DATASOURCE_PASSWORD&#xa;- APP_BASIC_AUTH_USERNAME&#xa;- APP_BASIC_AUTH_PASSWORD&#xa;- OPENAI_BASE_URL&#xa;- OPENAI_API_KEY&#xa;- OPENAI_MODEL&#xa;- EVOLUTION_BASE_URL&#xa;- EVOLUTION_API_KEY&#xa;- GOOGLE_OAUTH_CLIENT_ID&#xa;- GOOGLE_OAUTH_CLIENT_SECRET&#xa;- GOOGLE_OAUTH_REDIRECT_URI&#xa;- GOOGLE_OAUTH_TOKEN_ENCRYPTION_SECRET&#xa;- WHATSAPP_BUSINESS_ACCESS_TOKEN&#xa;&#xa;Note critiche:&#xa;- non committare valori reali&#xa;- se ruoti GOOGLE_OAUTH_TOKEN_ENCRYPTION_SECRET devi ricollegare Google Calendar" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf5ea;strokeColor=#82b366;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1330" y="670" width="470" height="420" as="geometry" />
+        </mxCell>
+
+        <mxCell id="evoenv" value="evolution-api .env sul VPS&#xa;&#xa;Salva queste env:&#xa;- SERVER_URL&#xa;- AUTHENTICATION_API_KEY&#xa;- POSTGRES_PASSWORD&#xa;- DATABASE_CONNECTION_URI&#xa;- REDIS_* / CACHE_* se usati&#xa;- provider/chatbot specific env se attivati&#xa;&#xa;Nota: queste non vanno nel frontend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf5ea;strokeColor=#82b366;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1840" y="670" width="410" height="250" as="geometry" />
+        </mxCell>
+
+        <mxCell id="google" value="Google Cloud Console&#xa;&#xa;Conserva / ruota:&#xa;- GOOGLE_OAUTH_CLIENT_ID&#xa;- GOOGLE_OAUTH_CLIENT_SECRET&#xa;- redirect URIs autorizzati&#xa;&#xa;Redirect reali da ricordare:&#xa;- locale callback backend: http://127.0.0.1:8090/api/v1/oauth/google/calendar/callback&#xa;- produzione: callback backend pubblico&#xa;&#xa;Il client secret si ruota qui" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="820" y="690" width="400" height="250" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rotation" value="Runbook di rotazione se succede qualcosa&#xa;&#xa;1. Identifica dove vive il segreto esposto&#xa;2. Rigenera dal provider sorgente&#xa;3. Aggiorna il secret nel punto di deploy corretto&#xa;4. Redeploy / restart del servizio toccato&#xa;5. Verifica healthcheck e login/onboarding&#xa;&#xa;Esempi:&#xa;- Basic auth backend: Vercel + /opt/assistant-core/.env + restart backend&#xa;- Supabase anon key: Vercel .env + redeploy frontend&#xa;- DB password Supabase: Supabase + /opt/assistant-core/.env + restart backend&#xa;- Evolution API key: /opt/evolution-api/.env + /opt/assistant-core/.env + restart entrambi&#xa;- Google client secret: Google Console + /opt/assistant-core/.env + restart backend&#xa;- Google token encryption secret: backend locale/VPS + reconnect Google Calendar per connessioni gia salvate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="720" width="700" height="340" as="geometry" />
+        </mxCell>
+
+        <mxCell id="inventory" value="Inventario consigliato da tenere aggiornato&#xa;&#xa;- 1Password / Bitwarden / vault condiviso&#xa;- tabella con: nome segreto, provider sorgente, ambiente, dove e deployato, come si ruota&#xa;- esempio colonne: SECRET | SOURCE | LOCAL | VERCEL | VPS | ROTATION OWNER | LAST ROTATED" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="790" y="980" width="430" height="160" as="geometry" />
+        </mxCell>
+
+        <mxCell id="local" value="Locale / sviluppo&#xa;&#xa;ai-secretary-web/.env.local&#xa;- NEXT_PUBLIC_APP_URL&#xa;- NEXT_PUBLIC_SUPABASE_URL&#xa;- NEXT_PUBLIC_SUPABASE_ANON_KEY&#xa;- ASSISTANT_CORE_BASE_URL&#xa;- ASSISTANT_CORE_BASIC_USER&#xa;- ASSISTANT_CORE_BASIC_PASSWORD&#xa;&#xa;assistant-core locale / docker-compose&#xa;- DB_URL / DB_USERNAME / DB_PASSWORD&#xa;- APP_BASIC_AUTH_USERNAME / PASSWORD&#xa;- OPENAI_BASE_URL / OPENAI_API_KEY / OPENAI_MODEL&#xa;- GOOGLE_OAUTH_CLIENT_ID&#xa;- GOOGLE_OAUTH_CLIENT_SECRET&#xa;- GOOGLE_OAUTH_REDIRECT_URI&#xa;- GOOGLE_OAUTH_TOKEN_ENCRYPTION_SECRET&#xa;&#xa;Nota: questi secret locali non vanno committati" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#d6b656;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="320" y="650" width="430" height="320" as="geometry" />
+        </mxCell>
+
+        <mxCell id="gitnote" value="Git / Repository&#xa;&#xa;Da NON committare:&#xa;- client secret Google reali&#xa;- token encryption secret reali&#xa;- password DB / Basic Auth reali&#xa;- file .env locali&#xa;&#xa;Da committare:&#xa;- placeholder&#xa;- application.yml con ${ENV_VAR}&#xa;- .env.example" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1100" width="700" height="180" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-user-vercel" value="usa app pubblica" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6c8ebf;strokeWidth=3;endArrow=block;endFill=1;fontSize=13;" edge="1" parent="1" source="user" target="vercel">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-vercel-frontend" value="deploy + runtime" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6c8ebf;strokeWidth=3;endArrow=block;endFill=1;fontSize=13;" edge="1" parent="1" source="vercel" target="frontend">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-frontend-supabase" value="signup/login sessione" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#d6b656;strokeWidth=3;endArrow=block;endFill=1;fontSize=13;" edge="1" parent="1" source="frontend" target="supabase">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-frontend-vps" value="BFF -&gt; assistant-core via Basic Auth" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#82b366;strokeWidth=3;endArrow=block;endFill=1;fontSize=13;" edge="1" parent="1" source="frontend" target="vps">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-dns-vercel" value="zapatende.com / app.zapatende.com" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#9673a6;strokeWidth=3;endArrow=block;endFill=1;fontSize=13;" edge="1" parent="1" source="dns" target="vercel">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-dns-vps" value="api.zapatende.com" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#9673a6;strokeWidth=3;endArrow=block;endFill=1;fontSize=13;" edge="1" parent="1" source="dns" target="vps">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-vps-supabase" value="JDBC / Postgres" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#82b366;strokeWidth=3;endArrow=block;endFill=1;fontSize=13;" edge="1" parent="1" source="vps" target="supabase">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-vps-google" value="OAuth + Calendar API" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#d79b00;strokeWidth=3;endArrow=block;endFill=1;fontSize=13;" edge="1" parent="1" source="vps" target="google">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-vps-assistantenv" value=".env assistant-core" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#82b366;strokeWidth=3;endArrow=block;endFill=1;fontSize=13;" edge="1" parent="1" source="vps" target="assistantenv">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-vps-evoenv" value=".env evolution-api" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#82b366;strokeWidth=3;endArrow=block;endFill=1;fontSize=13;" edge="1" parent="1" source="vps" target="evoenv">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-local-vercel" value="NON condividere a mano: documenta differenze" style="dashed=1;edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#d6b656;strokeWidth=2;endArrow=open;endFill=0;fontSize=13;" edge="1" parent="1" source="local" target="vercel">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-local-google" value="OAuth locale usa callback backend" style="dashed=1;edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#d79b00;strokeWidth=2;endArrow=open;endFill=0;fontSize=13;" edge="1" parent="1" source="local" target="google">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-rotation-vercel" value="segreti da ruotare in Vercel" style="dashed=1;edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#b85450;strokeWidth=2;endArrow=open;endFill=0;fontSize=13;" edge="1" parent="1" source="rotation" target="vercel">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-rotation-vps" value="segreti da ruotare sul VPS" style="dashed=1;edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#b85450;strokeWidth=2;endArrow=open;endFill=0;fontSize=13;" edge="1" parent="1" source="rotation" target="vps">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-rotation-supabase" value="sorgente auth/db" style="dashed=1;edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#b85450;strokeWidth=2;endArrow=open;endFill=0;fontSize=13;" edge="1" parent="1" source="rotation" target="supabase">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-rotation-google" value="sorgente OAuth" style="dashed=1;edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#b85450;strokeWidth=2;endArrow=open;endFill=0;fontSize=13;" edge="1" parent="1" source="rotation" target="google">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-git-local" value="mai committare secret reali" style="dashed=1;edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#b85450;strokeWidth=2;endArrow=open;endFill=0;fontSize=13;" edge="1" parent="1" source="gitnote" target="local">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
